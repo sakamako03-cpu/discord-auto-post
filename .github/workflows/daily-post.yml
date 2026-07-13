@@ -14,4 +14,4 @@ jobs:
       - name: Post daily message to Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: ./post.sh
+        run: bash post.sh
