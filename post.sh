@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# JST 9:00 に発火するよう workflow を UTC 0:00 で起動しているため、
-# UTC の曜日・週番号がそのまま JST の曜日・週番号と一致する
+START_DATE="2026-07-20"
+TODAY=$(date -u +%Y-%m-%d)
+if [[ "$TODAY" < "$START_DATE" ]]; then
+  echo "配信開始日（$START_DATE）より前のため、投稿をスキップします。"
+  exit 0
+fi
+
 WEEKDAY=$(date -u +%u)   # 1=月曜 ... 7=日曜
 WEEK=$(date -u +%V)      # ISO週番号（01-53）
 VARIANT=$(( (10#$WEEK - 1) % 4 ))
